@@ -1,0 +1,62 @@
+.container {
+    display: flex;
+}
+.first {
+    margin: 20px 0px;
+}
+
+.btn-first {
+    margin: 10px 0px 0px 20px;
+}
+.top, .bottom {
+    flex: 1;
+}
+.messages {
+    margin: 30px;
+}
+.error {
+    color: red;
+}
+.success {
+    color: green;
+    list-style: none;
+}
+
+#success_contain {
+    max-width: 800px;
+}
+.page-header {
+    border-bottom: 1px black solid;
+}
+
+.form-label {
+    font-size: 20pt;
+}
+.bump {
+    margin-top: 50px;
+}
+.indent {
+    padding-left: 10px;
+}
+.big-indent {
+    padding-left: 50px;
+}
+.right {
+    float: right;
+}
+.pad-right {
+    padding-right: 100px;
+}
+.small {
+    font-size: small;
+}
+.heavy {
+    font-size: 16pt;
+    font-weight: bold;
+}
+.wide {
+    max-width: 600px;
+}
+.wider {
+    max-width: 800px;
+}

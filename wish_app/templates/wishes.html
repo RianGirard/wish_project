@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Wishes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="page-header">
+        <h1>Welcome, {{this_user.fname}}!
+            <small class="right pad-right">
+                <a class="small" href="/logout">log out</a>
+                <a href="/wishes/stats"><button type="button" class="btn btn-outline-info btn-sm">View Stats</button></a>
+                <a href="/wishes/new"><button type="button" class="btn btn-outline-primary btn-sm">Make a Wish!</button></a>
+            </small>
+        </h1>
+    </div>
+    <div class="main">
+        <div class="upper bump indent">
+            <h4>Your wish list:</h4>
+            <table class="table table-striped table-bordered table-style">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Item</th>
+                        <th>Date added</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for wish in all_wishes reversed %}
+                    {% if wish.user == this_user and wish.granted == False %}
+                    <tr>
+                        <td scope="row">{{wish.item}}</th>
+                        <td>{{wish.created_at}}</td>
+                        <td><a href="wishes/destroy/{{wish.id}}">Remove</a> | <a href="wishes/edit/{{wish.id}}">Edit</button></a> | <a href="wishes/grant/{{wish.id}}">Granted!</button></a></td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="lower bump indent">
+            <h4>Granted wishes:</h4>
+            <table class="table table-striped table-bordered table-style">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Item</th>
+                        <th>Wisher</th>
+                        <th>Date added</th>
+                        <th>Date Granted</th>
+                        <th>Likes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for wish in all_wishes reversed %}
+                    {% if wish.granted == True %}
+                    <tr>
+                        <td scope="row">{{wish.item}}</th>
+                        <td>{{wish.user.fname}}</td>
+                        <td>{{wish.created_at}}</td>
+                        <td>{{wish.granted_at}}</td>
+                        <td>{{wish.users_who_like.all|length}}</td>
+                        {% if wish.user != this_user %}
+                        <td><a href="wishes/like/{{wish.id}}">Like</a></td>
+                        {% endif %}
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>
