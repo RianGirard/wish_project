@@ -9,11 +9,10 @@ class UserManager(models.Manager):
         if not EMAIL_REGEX.match(postData['email']):    # test whether a field matches the pattern
             errors['email'] = "Invalid email format!"
 
-        all_users = User.objects.all()      # section required to actually prevent entry of the email into db; AJAX gives user early notice
-        for user in all_users:
-            if postData['email'] == user.email:
-                errors['email'] = "Email already in database. Choose another"
-
+        found_users = User.objects.filter(email=postData['email'])
+        if found_users:
+            errors['email'] = "Email already in database. Choose another"
+        
         if len(postData['password']) < 8:
             errors['password'] = "Password must be at least 8 characters"
 

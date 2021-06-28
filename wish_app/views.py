@@ -23,7 +23,8 @@ def login(request):
 
 def register(request):
     errors = User.objects.user_validator(request.POST)
-    if len(errors) > 0:
+    # if len(errors) > 0:
+    if errors:                                  # more concise to just say "if errors", as opposed to measuring its length
         for value in errors.values():
             messages.error(request, value)
         return redirect('/')
